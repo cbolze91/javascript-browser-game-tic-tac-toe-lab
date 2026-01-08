@@ -19,7 +19,18 @@ console.log(messageEl);
 
 /*-------------------------------- Functions --------------------------------*/
 
+init();
 
+function init() {
+  console.log('Game initialized');
+
+  board = ['', '', '', '', '', '', '', '', ''];
+  turn = 'X';
+  winner = false;
+  tie = false;
+
+  render();
+}
 
 /*----------------------------- Event Listeners -----------------------------*/
 
