@@ -22,9 +22,11 @@ let tie;
 
 const squareEls = document.querySelectorAll('.sqr');
 const messageEl = document.querySelector('#message');
+const resetBtnEl = document.querySelector('#reset');
 
 console.log(squareEls);
 console.log(messageEl);
+console.log(resetBtnEl);
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -64,7 +66,76 @@ function updateMessage() {
   }
 }
 
+function handleClick(evt) {
+  const squareIndex = Number(evt.target.id);
+
+  // square already taken?
+  if (board[squareIndex] !== '') return;
+
+  // game already over?
+  if (winner === true) return;
+
+  placePiece(squareIndex);
+  checkForWinner();
+  checkForTie();
+  switchPlayerTurn();
+  render();
+}
+
+function placePiece(index) {
+  board[index] = turn;
+  // console.log(board); // testing
+}
+
+function checkForWinner() {
+  winningCombos.forEach((combo) => {
+    const a = combo[0];
+    const b = combo[1];
+    const c = combo[2];
+
+    if (
+      board[a] !== '' &&
+      board[a] === board[b] &&
+      board[a] === board[c]
+    ) {
+      winner = true;
+    }
+  });
+
+  // console.log('winner:', winner); // testing
+}
+
+function checkForTie() {
+  if (winner === true) return;
+
+  if (board.includes('')) {
+    tie = false;
+  } else {
+    tie = true;
+  }
+
+  // console.log('tie:', tie); // testing
+}
+
+function switchPlayerTurn() {
+  if (winner === true) return;
+
+  if (turn === 'X') {
+    turn = 'O';
+  } else {
+    turn = 'X';
+  }
+
+  // console.log('turn:', turn); // testing
+}
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
+squareEls.forEach((square) => {
+  square.addEventListener('click', handleClick);
+});
+
+resetBtnEl.addEventListener('click', init);
 
 
