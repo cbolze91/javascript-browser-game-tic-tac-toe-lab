@@ -24,17 +24,12 @@ const squareEls = document.querySelectorAll('.sqr');
 const messageEl = document.querySelector('#message');
 const resetBtnEl = document.querySelector('#reset');
 
-console.log(squareEls);
-console.log(messageEl);
-console.log(resetBtnEl);
 
 /*-------------------------------- Functions --------------------------------*/
 
 init();
 
 function init() {
-  console.log('Game initialized');
-
   board = ['', '', '', '', '', '', '', '', ''];
   turn = 'X';
   winner = false;
@@ -73,7 +68,7 @@ function handleClick(evt) {
   if (board[squareIndex] !== '') return;
 
   // game already over?
-  if (winner === true) return;
+  if (winner === true || tie === true) return;
 
   placePiece(squareIndex);
   checkForWinner();
@@ -84,7 +79,6 @@ function handleClick(evt) {
 
 function placePiece(index) {
   board[index] = turn;
-  // console.log(board); // testing
 }
 
 function checkForWinner() {
@@ -101,8 +95,6 @@ function checkForWinner() {
       winner = true;
     }
   });
-
-  // console.log('winner:', winner); // testing
 }
 
 function checkForTie() {
@@ -113,8 +105,6 @@ function checkForTie() {
   } else {
     tie = true;
   }
-
-  // console.log('tie:', tie); // testing
 }
 
 function switchPlayerTurn() {
@@ -125,8 +115,6 @@ function switchPlayerTurn() {
   } else {
     turn = 'X';
   }
-
-  // console.log('turn:', turn); // testing
 }
 
 
